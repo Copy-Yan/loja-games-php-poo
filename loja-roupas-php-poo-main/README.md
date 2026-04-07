@@ -1,1 +1,0 @@
-# loja-games-php-poo
