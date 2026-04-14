@@ -1,4 +1,4 @@
-p<?php
+<?php
 echo "<h2>Teste da classe Database (db.php)</h2>";
 
 require_once__DIR__. '/config/db.php';
