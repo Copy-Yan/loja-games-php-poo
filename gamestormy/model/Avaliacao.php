@@ -12,7 +12,7 @@ class Avaliacao {
     }
 
     public function create($id_usuario, $id_jogo, $nota, $comentario) {
-        $stmt = $this->pdo->prepare("INSERT INTO Avaliacoes (id_usuario, id_jogo, nota, comentario, data_avaliacao) VALUES (?,?,?,?,CURDATE()) ON DUPLICATE KEY UPDATE nota=?, comentario=?");
+        $stmt = $this->pdo->prepare("INSERT INTO Avaliacoes (id_usuario, id_jogo, nota, comentario, data_avaliacao) VALUES (?,?,?,?,CURDATE()) ON DUPLICATE KEY UPDATE nota=?, comentario=?, data_avaliacao=CURDATE()");
         $stmt->execute([$id_usuario, $id_jogo, $nota, $comentario, $nota, $comentario]);
         return true;
     }
