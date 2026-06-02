@@ -6,7 +6,7 @@ class Jogo {
     public function __construct() { $this->pdo = getDB(); }
 
     public function getAll($limit = 50) {
-        $stmt = $this->pdo->query("SELECT j.*, d.nome AS desenvolvedora, p.nome AS publicadora FROM Jogos j JOIN Desenvolvedoras d ON j.id_desenvolvedora = d.id_desenvolvedora JOIN Publicadoras p ON j.id_publicadora = p.id_publicadora ORDER BY j.data_lancamento DESC LIMIT $limit");
+        $stmt = $this->pdo->query("SELECT j.*, d.nome AS desenvolvedora, p.nome AS publicadora FROM Jogos j JOIN Desenvolvedoras d ON j.id_desenvolvedora = d.id_desenvolvedora JOIN Publicadoras p ON j.id_publicadora = p.id_publicadora LIMIT $limit");
         return $stmt->fetchAll();
     }
 
@@ -18,13 +18,13 @@ class Jogo {
 
     public function search($q) {
         $q = "%$q%";
-        $stmt = $this->pdo->prepare("SELECT j.*, d.nome AS desenvolvedora, p.nome AS publicadora FROM Jogos j JOIN Desenvolvedoras d ON j.id_desenvolvedora = d.id_desenvolvedora JOIN Publicadoras p ON j.id_publicadora = p.id_publicadora WHERE j.titulo LIKE ? OR j.descricao LIKE ? OR d.nome LIKE ? ORDER BY j.titulo LIMIT 30");
+        $stmt = $this->pdo->prepare("SELECT j.*, d.nome AS desenvolvedora, p.nome AS publicadora FROM Jogos j JOIN Desenvolvedoras d ON j.id_desenvolvedora = d.id_desenvolvedora JOIN Publicadoras p ON j.id_publicadora = p.id_publicadora WHERE j.titulo LIKE ? OR j.descricao LIKE ? OR d.nome LIKE ? ORDER BY j.titulo LIMIT 50");
         $stmt->execute([$q, $q, $q]);
         return $stmt->fetchAll();
     }
 
     public function getDestaques() {
-        $stmt = $this->pdo->query("SELECT j.*, d.nome AS desenvolvedora, p.nome AS publicadora FROM Jogos j JOIN Desenvolvedoras d ON j.id_desenvolvedora = d.id_desenvolvedora JOIN Publicadoras p ON j.id_publicadora = p.id_publicadora WHERE j.tag IN ('Oferta da semana','Novo lançamento','Promoção') ORDER BY j.id_jogo LIMIT 6");
+        $stmt = $this->pdo->query("SELECT j.*, d.nome AS desenvolvedora, p.nome AS publicadora FROM Jogos j JOIN Desenvolvedoras d ON j.id_desenvolvedora = d.id_desenvolvedora JOIN Publicadoras p ON j.id_publicadora = p.id_publicadora WHERE j.nota >= 8.0 ORDER BY j.nota DESC LIMIT 8");
         return $stmt->fetchAll();
     }
 
@@ -34,7 +34,7 @@ class Jogo {
     }
 
     public function getByCategoria($id_categoria, $limit = 10) {
-        $stmt = $this->pdo->prepare("SELECT j.*, d.nome AS desenvolvedora, p.nome AS publicadora FROM Jogos j JOIN Desenvolvedoras d ON j.id_desenvolvedora = d.id_desenvolvedora JOIN Publicadoras p ON j.id_publicadora = p.id_publicadora JOIN Jogos_categorias jc ON j.id_jogo = jc.id_jogo WHERE jc.id_categoria = ? ORDER BY j.titulo LIMIT $limit");
+        $stmt = $this->pdo->prepare("SELECT j.*, d.nome AS desenvolvedora, p.nome AS publicadora FROM Jogos j JOIN Desenvolvedoras d ON j.id_desenvolvedora = d.id_desenvolvedora JOIN Publicadoras p ON j.id_publicadora = p.id_publicadora JOIN Jogos_categorias jc ON j.id_jogo = jc.id_jogo WHERE jc.id_categoria = ? LIMIT $limit");
         $stmt->execute([$id_categoria]);
         return $stmt->fetchAll();
     }
