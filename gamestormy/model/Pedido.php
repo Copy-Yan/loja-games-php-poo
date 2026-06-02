@@ -32,5 +32,11 @@ class Pedido {
         $stmt->execute([$id_pedido]);
         return $stmt->fetchAll();
     }
+
+    public function getByUsuario($id_usuario, $limit = 10) {
+        $stmt = $this->pdo->prepare("SELECT * FROM Pedidos WHERE id_usuario = ? ORDER BY data_pedido DESC LIMIT $limit");
+        $stmt->execute([$id_usuario]);
+        return $stmt->fetchAll();
+    }
 }
 ?>
