@@ -1,1 +1,1 @@
-# loja-games-php-poo
+# loja-jogos-php-poo
