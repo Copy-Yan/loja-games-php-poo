@@ -1,4 +1,4 @@
-# Games Stormy - PHP MVC + MySQL
+# Gamestormy - PHP MVC + MySQL
 
 
 
