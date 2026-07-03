@@ -71,10 +71,7 @@ Antes de executar a aplicação localmente, certifique-se de possuir os seguinte
 
 Siga os passos abaixo para executar o projeto em sua máquina:
 
-1. Clone o repositório:
-
-```bash
-git clone https://github.com/SEU-USUARIO/gamestormy.git
+git clone https://github.com/Copy-Yan/loja-games-php-poo.git
 
 ### Caso Banco de dados não for de imediato
 1. Vá no PHPMYADMIN **Importar**
